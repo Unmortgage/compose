@@ -509,6 +509,7 @@ class Project(object):
            reset_container_image=False,
            renew_anonymous_volumes=False,
            silent=False,
+           service_options_override=None,
            ):
 
         self.initialize()
@@ -517,6 +518,9 @@ class Project(object):
 
         if scale_override is None:
             scale_override = {}
+
+        if service_options_override is None:
+            service_options_override = {}
 
         services = self.get_services_without_duplicate(
             service_names,
@@ -538,6 +542,7 @@ class Project(object):
                 start=start,
                 reset_container_image=reset_container_image,
                 renew_anonymous_volumes=renew_anonymous_volumes,
+                override_options=service_options_override,
             )
 
         def get_deps(service):
